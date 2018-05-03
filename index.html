@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title>Face Detection App - ArcGIS Demo</title>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <script src="https://js.arcgis.com/3.24/"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="script/face.js"></script>
+    <script src="script/app.js"></script>
+</head>
+
+<body>
+    <div id="title"><h1>Hello, Welcome to Our Office!</h1></div>
+    <div id="inputPic">
+    For this demo, please input a url of your picture<br><br>
+    <input type="text" name="inputImage" id="inputImage" value=" "/>
+    <button id="process" onclick="processImage()">Submit</button><br><br>
+    <button id="post" disabled>Click to Enter Our Office</button>
+    </div><br><br>
+    <div id="result"></div><br>
+    <div id="wrapper" style="text-align: center; width:100%; display:table; margin: 0; padding: 0;">
+        <div id="imageDiv" style="text-align: center; width:100%; display:table-cell;">
+            <br>
+            <br>
+            <img id="sourceImage" height="400" />
+        </div>
+    </div>
+  
+</body>
+
+</html>
