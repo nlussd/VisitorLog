@@ -1,4 +1,45 @@
 var gender, age, smile, word;
+var resurl;
+
+
+const cloudName = 'lusi0504';
+const unsignedUploadPreset = 'jlshuxbp';
+
+
+
+// *********** Upload file to Cloudinary ******************** //
+function uploadFile(file) {
+    var url = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  
+    xhr.onreadystatechange = function(e) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // File uploaded successfully
+        var response = JSON.parse(xhr.responseText);
+        // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
+        resurl = response.secure_url;
+        // Create a thumbnail of the uploaded image, with 150px width
+        var tokens = resurl.split('/');
+        tokens.splice(-2, 0, 'w_150,c_scale');
+        var img = new Image(); // HTML5 Constructor
+        img.src = tokens.join('/');
+        img.alt = response.public_id;
+        // document.getElementById('gallery').appendChild(img);
+        console.log(resurl);
+        processImage();
+      }
+    };
+  
+    fd.append('upload_preset', unsignedUploadPreset);
+    fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
+    fd.append('file', file);
+    xhr.send(fd);
+  }
+
+
 
 function processImage() {
     // **********************************************
@@ -6,7 +47,7 @@ function processImage() {
     // **********************************************
 
     // Replace the subscriptionKey string value with your valid subscription key.
-    var subscriptionKey = "00d18e8f07264059983df58d9344e7c3";
+    var subscriptionKey = "13ba648535fa4508af4553f9327e1f95";
 
     // Replace or verify the region.
     //
@@ -16,7 +57,7 @@ function processImage() {
     //
     // NOTE: Free trial subscription keys are generated in the westcentralus region, so if you are using
     // a free trial subscription key, you should not need to change this region.
-    var uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+    var uriBase = "https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect";
 
     // Request parameters.
     var params = {
@@ -24,10 +65,6 @@ function processImage() {
         "returnFaceLandmarks": "false",
         "returnFaceAttributes": "age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise",
     };
-
-    // Display the image.
-    var sourceImageUrl = document.getElementById("inputImage").value;
-    document.querySelector("#sourceImage").src = sourceImageUrl;
 
     // Perform the REST API call.
     $.ajax({
@@ -40,9 +77,10 @@ function processImage() {
         },
 
         type: "POST",
-
+        
         // Request body.
-        data: '{"url": ' + '"' + sourceImageUrl + '"}',
+        data: '{"url": ' + '"' + resurl + '"}',
+ 
     })
 
     .done(function(data) {
@@ -62,6 +100,8 @@ function processImage() {
         $("#result").html('<div> Your gender is ' + gender + ', age ' + age + '. <br>' + word + '<br>We hope you look younger than you actually are :) </div>');
        
         $("#post").prop('disabled', false);
+  
+        
     })
 
     .fail(function(jqXHR, textStatus, errorThrown) {
