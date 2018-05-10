@@ -11,41 +11,6 @@
     crossorigin="anonymous"></script>
   <script src="https://js.arcgis.com/3.24/"></script>
 
-  <script>
-
-    require([
-      "script/face.js",
-      "esri/request",
-      "dojo/_base/json",
-      "dojo/on",
-      "dojo/dom",
-      "dojo/domReady!"
-    ],
-      function (SpatialReference, esriRequest, dojoJson, on, dom) {
-
-
-        $('#post').click(function () {
-
-          var objPt = [{ "attributes": { "f1": "Front Office", "f2": gender, "f3": age, "f4": smile }, "geometry": { "x": 11889970.713866549, "y": -701701.1229169335 } }];
-
-          var visitorPt = JSON.stringify(objPt);
-
-          var layersRequest = esriRequest({
-            url: "https://services8.arcgis.com/mpSDBlkEzjS62WgX/ArcGIS/rest/services/aLFYn/FeatureServer/0/addFeatures",
-            content: {
-              "features": visitorPt,
-              "f": "json"
-            }
-          }, { "usePost": true });
-
-          layersRequest.then(console.log('success'), console.log('error'));
-        });
-
-
-      });
-
-  </script>
-
 
 </head>
 
@@ -59,7 +24,7 @@
   </div>
   <div class="row">
     <div class="cam col-md-6" style="margin:0px; padding:10px;">
-            <video style="width:90%;" autoplay>
+            <video style="width:70%;" autoplay>
       
             </video>
             <br>
@@ -67,7 +32,7 @@
     </div>
     <div class="cam col-md-6" style="margin:0px; padding:10px;">
         <div id="pic"></div>
-        <button id="process" class="btn" onclick="uploadFile(blob)">Submit</button>
+        <button id="process" class="btn">Submit</button>
     </div>
   </div>
   <div class="row">
@@ -75,11 +40,6 @@
           <div id="result"></div>
       </div>
   </div>
-  <div class="row">
-      <div class="col-md-12" style="text-align: center;">
-          <button id="post" class="btn" style="padding:10px; margin:10px; text-align:center;" disabled>Click to Open Door</button>
-      </div>
-    </div>
   
   
 
