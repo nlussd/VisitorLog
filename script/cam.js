@@ -50,7 +50,7 @@ var imS, blob;
         video.src = window.URL.createObjectURL(stream);
         // click button and take photo
         $("#snap").click(takeSnapshot);
-        $("#process").prop('disabled', false);
+   
       })
       // permission denied:
       .catch(function (error) {
