@@ -13,7 +13,7 @@ require([
         var resurl;
 
 
-        // make esri request to send data through arcgis rest 
+        // make esri request to send data through arcgis rest & webhooks
         function sendData() {
 
             var objPt = [{ "attributes": { "f1": "Front Office", "f2": gender, "f3": age, "f4": smile }, "geometry": { "x": 11889970.713866549, "y": -701701.1229169335 } }];
@@ -29,10 +29,29 @@ require([
             }, { "usePost": true });
 
             layersRequest.then(console.log('success'), console.log('error'));
+
+
+            // set up post request for webhook
+            var hookUrl = 'https://hook.integromat.com/gwnk7954kpgj7asnm0ggqcvt4ihz186h';
+            var http = new XMLHttpRequest();
+            http.open('POST', hookUrl, true);
+            http.setRequestHeader('Content-Type', 'application/json');
+            
+
+             http.onreadystatechange = function (e) {
+                if (http.readyState == 4 && http.status == 200) {
+                    alert(http.responseText);
+                }
+            }
+
+            http.send(visitorPt);
+
+
+
         };
 
 
-        // set for Cloudinary
+        // setting for Cloudinary
         const cloudName = 'lusi0504';
         const unsignedUploadPreset = 'jlshuxbp';
 
