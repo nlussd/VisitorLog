@@ -52,7 +52,8 @@ require([
 
 
         // setting for Cloudinary
-        const cloudName = 'lusi0504';
+        //change with your cloudinary cloudname
+        const cloudName = '';
         const unsignedUploadPreset = 'jlshuxbp';
 
 
@@ -88,7 +89,7 @@ require([
             // **********************************************
 
             // Replace the subscriptionKey string value with your valid subscription key.
-            var subscriptionKey = "13ba648535fa4508af4553f9327e1f95";
+            var subscriptionKey = "";
 
             // use the url given by azure in Face API (may differ based on subscription)
             var uriBase = "https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect";
